@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    private UserService us;
+    private final UserService userService;
 
-    public UserController(){
-        us = new UserService();
+    @Autowired
+    public UserController(UserService us){
+        this.userService = us;
     }
 
     @GetMapping("newUser1/{name}/{email}")
     public String getUser(@PathVariable String name, @PathVariable String email){
-        us.registerUser(name, email);
-        return "With";
+        return userService.registerUser(name, email);
     }
 
 }
